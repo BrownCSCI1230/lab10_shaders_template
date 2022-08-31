@@ -1,7 +1,7 @@
 #include "glrenderer.h"
 
 #include <QCoreApplication>
-#include "CS1230Lib/shaderloader.h"
+#include "src/shaderloader.h"
 
 #include <QMouseEvent>
 #include "glm/gtc/constants.hpp"
