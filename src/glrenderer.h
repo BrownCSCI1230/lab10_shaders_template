@@ -13,9 +13,9 @@ public:
     ~GLRenderer();
 
 protected:
-    void initializeGL() override;   //Called once at the start of the program
-    void paintGL() override;    //Called every frame in a loop
-    void resizeGL(int width, int height) override;  //Called when window size changes
+    void initializeGL() override;   // Called once at the start of the program
+    void paintGL() override;    // Called every frame in a loop
+    void resizeGL(int width, int height) override;  // Called when window size changes
 
     void mousePressEvent(QMouseEvent *e) override; // Used for camera movement
     void mouseMoveEvent(QMouseEvent *e) override; // Used for camera movement

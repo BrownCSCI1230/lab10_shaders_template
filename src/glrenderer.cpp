@@ -23,19 +23,22 @@ GLRenderer::~GLRenderer()
     doneCurrent();
 }
 
-glm::vec4 sphericalToCartesian(float phi, float theta) {
+glm::vec4 sphericalToCartesian(float phi, float theta)
+{
     return glm::vec4(glm::cos(theta) * glm::sin(phi),
                      glm::sin(theta) * glm::sin(phi),
                      glm::cos(phi),1);
 }
 
-void pushVec3(glm::vec4 vec, std::vector<float>* data) {
+void pushVec3(glm::vec4 vec, std::vector<float>* data)
+{
     data->push_back(vec.x);
     data->push_back(vec.y);
     data->push_back(vec.z);
 }
 
-std::vector<float> generateSphereData(int phiTesselations, int thetaTesselations) {
+std::vector<float> generateSphereData(int phiTesselations, int thetaTesselations)
+{
     std::vector<float> data;
 
     data.clear();
@@ -69,7 +72,6 @@ std::vector<float> generateSphereData(int phiTesselations, int thetaTesselations
 
 void GLRenderer::initializeGL()
 {
-
     // GLEW is a library which provides an implementation for the OpenGL API
     // Here, we are setting it up
     glewExperimental = GL_TRUE;
@@ -125,8 +127,6 @@ void GLRenderer::paintGL()
     // Task 13: pass m_ka into the fragment shader as a uniform
 
     // Task 16: pass m_lightPos into the fragment shader
-
-
 
     // Draw Command
     glDrawArrays(GL_TRIANGLES, 0, m_sphereData.size() / 3);
