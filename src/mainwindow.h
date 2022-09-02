@@ -1,5 +1,4 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include <QMainWindow>
 #include "glrenderer.h"
@@ -15,4 +14,3 @@ public:
 private:
     GLRenderer *glRenderer;
 };
-#endif // MAINWINDOW_H

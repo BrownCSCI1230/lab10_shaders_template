@@ -1,7 +1,5 @@
-#ifndef SHADERLOADER_H
-#define SHADERLOADER_H
-
 #pragma once
+
 #include "GL/glew.h"
 #include <QFile>
 #include <iostream>
@@ -64,5 +62,3 @@ private:
         return shaderID;
     }
 };
-
-#endif // SHADERLOADER_H
