@@ -11,8 +11,9 @@
 GLRenderer::GLRenderer(QWidget *parent)
     : QOpenGLWidget(parent),
       m_ka(0.1), m_kd(0.8), m_ks(1),
-      m_lightPos(glm::vec4(10,0,0,1)), m_angleX(6), m_angleY(0),
-      m_zoom(2)
+      m_angleX(6), m_angleY(0), m_zoom(2),
+      m_lightPos(10,0,0,1), m_lightColor(1,1,1), shininess(100)
+
 {
     rebuildMatrices();
 }

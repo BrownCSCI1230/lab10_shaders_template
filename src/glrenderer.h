@@ -32,12 +32,13 @@ private:
     glm::mat4 m_model = glm::mat4(1);
     glm::mat4 m_view;
     glm::mat4 m_proj;
+    glm::vec4 m_lightPos;
+    glm::vec3 m_lightColor;
 
     float m_ka;
     float m_kd;
     float m_ks;
-
-    glm::vec4 m_lightPos;
+    float shininess;
 
     QPoint m_prevMousePos;
     float m_angleX;
