@@ -24,19 +24,22 @@ GLRenderer::~GLRenderer()
     doneCurrent();
 }
 
-glm::vec4 sphericalToCartesian(float phi, float theta) {
+glm::vec4 sphericalToCartesian(float phi, float theta)
+{
     return glm::vec4(glm::cos(theta) * glm::sin(phi),
                      glm::sin(theta) * glm::sin(phi),
                      glm::cos(phi),1);
 }
 
-void pushVec3(glm::vec4 vec, std::vector<float>* data) {
+void pushVec3(glm::vec4 vec, std::vector<float>* data)
+{
     data->push_back(vec.x);
     data->push_back(vec.y);
     data->push_back(vec.z);
 }
 
-std::vector<float> generateSphereData(int phiTesselations, int thetaTesselations) {
+std::vector<float> generateSphereData(int phiTesselations, int thetaTesselations)
+{
     std::vector<float> data;
 
     data.clear();
@@ -70,7 +73,6 @@ std::vector<float> generateSphereData(int phiTesselations, int thetaTesselations
 
 void GLRenderer::initializeGL()
 {
-
     // GLEW is a library which provides an implementation for the OpenGL API
     // Here, we are setting it up
     glewExperimental = GL_TRUE;
@@ -83,29 +85,29 @@ void GLRenderer::initializeGL()
     // Enable Depth Testing
     glEnable(GL_DEPTH_TEST);
 
-    // TASK 1: call ShaderLoader::createShaderProgram passing in the paths
+    // Task 1: call ShaderLoader::createShaderProgram passing in the paths
     //         to the vertex and fragment shaders and store return value in m_programID
 
 
-    //Generate and Bind VBO
+    // Generate and Bind VBO
     glGenBuffers(1, &m_sphere_vbo);
     glBindBuffer(GL_ARRAY_BUFFER, m_sphere_vbo);
-    //Generate Sphere data
+    // Generate Sphere data
     m_sphereData = generateSphereData(10,20);
-    //Send Data to VBO
+    // Send Data to VBO
     glBufferData(GL_ARRAY_BUFFER,m_sphereData.size() * sizeof(GLfloat),m_sphereData.data(), GL_STATIC_DRAW);
-    //Generate, and bind vao
+    // Generate, and bind vao
     glGenVertexArrays(1, &m_sphere_vao);
     glBindVertexArray(m_sphere_vao);
 
-    //Enable and Define Attribute 0 to store Position information
+    // Enable and Define Attribute 0 to store Position information
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,3 * sizeof(GLfloat),reinterpret_cast<void *>(0));
 
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,3 * sizeof(GLfloat),reinterpret_cast<void *>(0));
 
-    //Clean-up bindings
+    // Clean-up bindings
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER,0);
 }
@@ -117,24 +119,22 @@ void GLRenderer::paintGL()
     // Bind Sphere Vertex Data
     glBindVertexArray(m_sphere_vao);
 
-    // TASK 2: activate the shader program by calling glUseProgram with m_programID
+    // Task 2: activate the shader program by calling glUseProgram with m_programID
 
-    // TASK 6: pass in m_model as a uniform into the shader progam
+    // Task 6: pass in m_model as a uniform into the shader progam
 
-    // TASK 7: pass in m_view and m_proj
+    // Task 7: pass in m_view and m_proj
 
-    // TASK 13: pass m_ka into the fragment shader as a uniform
+    // Task 13: pass m_ka into the fragment shader as a uniform
 
-    // TASK 16: pass m_lightPos into the fragment shader
+    // Task 16: pass m_lightPos into the fragment shader
 
-
-
-    //Draw Command
+    // Draw Command
     glDrawArrays(GL_TRIANGLES, 0, m_sphereData.size() / 3);
-    //Unbind Vertex Array
+    // Unbind Vertex Array
     glBindVertexArray(0);
 
-    // TASK 3: deactivate the shader program by passing 0 into glUseProgram
+    // Task 3: deactivate the shader program by passing 0 into glUseProgram
 
 }
 
@@ -153,7 +153,7 @@ void GLRenderer::mousePressEvent(QMouseEvent *event) {
 }
 
 void GLRenderer::mouseMoveEvent(QMouseEvent *event) {
-    // update angle member variables based on event parameters
+    // Update angle member variables based on event parameters
     m_angleX += 10 * (event->position().x() - m_prevMousePos.x()) / (float) width();
     m_angleY += 10 * (event->position().y() - m_prevMousePos.y()) / (float) height();
     m_prevMousePos = event->pos();
@@ -161,13 +161,13 @@ void GLRenderer::mouseMoveEvent(QMouseEvent *event) {
 }
 
 void GLRenderer::wheelEvent(QWheelEvent *event) {
-    // update zoom based on event parameter
+    // Update zoom based on event parameter
     m_zoom -= event->angleDelta().y() / 100.f;
     rebuildMatrices();
 }
 
 void GLRenderer::rebuildMatrices() {
-    // update view matrix by rotating eye vector based on x and y angles
+    // Update view matrix by rotating eye vector based on x and y angles
     m_view = glm::mat4(1);
     glm::mat4 rot = glm::rotate(glm::radians(-10 * m_angleX),glm::vec3(0,0,1));
     glm::vec3 eye = glm::vec3(2,0,0);

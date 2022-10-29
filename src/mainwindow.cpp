@@ -11,7 +11,5 @@ MainWindow::MainWindow()
     this->setLayout(container);
 }
 
-MainWindow::~MainWindow()
-{
-}
+MainWindow::~MainWindow() {}
 

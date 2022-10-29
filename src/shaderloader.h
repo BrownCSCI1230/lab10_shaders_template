@@ -1,7 +1,5 @@
-#ifndef SHADERLOADER_H
-#define SHADERLOADER_H
-
 #pragma once
+
 #include "GL/glew.h"
 #include <QFile>
 #include <iostream>
@@ -52,17 +50,15 @@ private:
         glCompileShader(shaderID);
         // Print info log if shader fails to compile.
         GLint status;
-        glGetProgramiv(shaderID, GL_COMPILE_STATUS, &status);
+        glGetShaderiv(shaderID, GL_COMPILE_STATUS, &status);
         if (status == GL_FALSE) {
             GLint length;
-            glGetProgramiv(shaderID, GL_INFO_LOG_LENGTH, &length);
+            glGetShaderiv(shaderID, GL_INFO_LOG_LENGTH, &length);
             std::string log(length, '\0');
-            glGetProgramInfoLog(shaderID, length, nullptr, &log[0]);
-            glDeleteProgram(shaderID);
+            glGetShaderInfoLog(shaderID, length, nullptr, &log[0]);
+            glDeleteShader(shaderID);
             throw std::runtime_error(log);
         }
         return shaderID;
     }
 };
-
-#endif // SHADERLOADER_H
