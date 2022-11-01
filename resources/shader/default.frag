@@ -1,8 +1,8 @@
 #version 330 core
 
-// Task 5: declare in variable for position and normal to recieve from vertex shader
+// Task 5: declare "in" variables for the position and normal to recieve from vertex shader
 
-// Task 10: declare a vec4 out named fragColor
+// Task 10: declare an out vec4 named gl_FragColor
 
 // Task 12: declare a uniform float to store the ambient coefficent
 
@@ -10,7 +10,7 @@
 
 
 void main() {
-    // Task 10: set fragColor to vec4(1.0) and make sure you can see the white circle.
+    // Task 10: set gl_FragColor to vec4(1.0) and make sure you can see the white circle.
 
     // Task 11: set fragColor to have color components from the normal vector to make sure the normals are transformed correctly.
     //         once you verify that the normals are correct set the frag color to black(0,0,0,1) to prep for the next part of the lab
