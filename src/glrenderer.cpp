@@ -104,8 +104,9 @@ void GLRenderer::initializeGL()
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,3 * sizeof(GLfloat),reinterpret_cast<void *>(0));
 
+    // Enable and Define Attribute 1 to store Normal information
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,3 * sizeof(GLfloat),reinterpret_cast<void *>(0));
+    glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,3 * sizeof(GLfloat),reinterpret_cast<void *>(0));
 
     // Clean-up bindings
     glBindVertexArray(0);

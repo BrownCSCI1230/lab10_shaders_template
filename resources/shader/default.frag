@@ -4,6 +4,8 @@
 
 // Task 10: declare a vec4 out named fragColor
 
+// Task 12: declare a uniform float to store the ambient coefficent
+
 // Task 13: declare a uniform to store the light position
 
 
