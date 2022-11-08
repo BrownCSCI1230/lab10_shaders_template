@@ -10,10 +10,14 @@
 
 GLRenderer::GLRenderer(QWidget *parent)
     : QOpenGLWidget(parent),
-      m_ka(0.1), m_kd(0.8), m_ks(1),
-      m_angleX(6), m_angleY(0), m_zoom(2),
-      m_lightPos(10,0,0,1), m_lightColor(1,1,1), shininess(15)
-
+      m_lightPos(10,0,0,1),
+      m_ka(0.1),
+      m_kd(0.8),
+      m_ks(1),
+      m_shininess(15),
+      m_angleX(6),
+      m_angleY(0),
+      m_zoom(2)
 {
     rebuildMatrices();
 }
@@ -23,6 +27,8 @@ GLRenderer::~GLRenderer()
     makeCurrent();
     doneCurrent();
 }
+
+// ================== Helper Functions
 
 glm::vec4 sphericalToCartesian(float phi, float theta)
 {
@@ -71,42 +77,39 @@ std::vector<float> generateSphereData(int phiTesselations, int thetaTesselations
     return data;
 }
 
+// ================== Students, You'll Be Working In These Files
+
 void GLRenderer::initializeGL()
 {
-    // GLEW is a library which provides an implementation for the OpenGL API
-    // Here, we are setting it up
+    // Initialize GL extension wrangler
     glewExperimental = GL_TRUE;
     GLenum err = glewInit();
     if (err != GLEW_OK) fprintf(stderr, "Error while initializing GLEW: %s\n", glewGetErrorString(err));
     fprintf(stdout, "Successfully initialized GLEW %s\n", glewGetString(GLEW_VERSION));
 
-    // Set Clear Color to black
+    // Set clear color to black
     glClearColor(0,0,0,1);
-    // Enable Depth Testing
+
+    // Enable depth testing
     glEnable(GL_DEPTH_TEST);
 
-    // Task 1: call ShaderLoader::createShaderProgram passing in the paths
-    //         to the vertex and fragment shaders and store return value in m_programID
+    // Task 1: call ShaderLoader::createShaderProgram with the paths to the vertex
+    //         and fragment shaders. Then, store its return value in `m_shader`
 
-
-    // Generate and Bind VBO
+    // Generate and bind VBO
     glGenBuffers(1, &m_sphere_vbo);
     glBindBuffer(GL_ARRAY_BUFFER, m_sphere_vbo);
-    // Generate Sphere data
+    // Generate sphere data
     m_sphereData = generateSphereData(10,20);
-    // Send Data to VBO
+    // Send data to VBO
     glBufferData(GL_ARRAY_BUFFER,m_sphereData.size() * sizeof(GLfloat),m_sphereData.data(), GL_STATIC_DRAW);
     // Generate, and bind vao
     glGenVertexArrays(1, &m_sphere_vao);
     glBindVertexArray(m_sphere_vao);
 
-    // Enable and Define Attribute 0 to store Position information
+    // Enable and define attribute 0 to store vertex positions
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,3 * sizeof(GLfloat),reinterpret_cast<void *>(0));
-
-    // Enable and Define Attribute 1 to store Normal information
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,3 * sizeof(GLfloat),reinterpret_cast<void *>(0));
 
     // Clean-up bindings
     glBindVertexArray(0);
@@ -120,15 +123,17 @@ void GLRenderer::paintGL()
     // Bind Sphere Vertex Data
     glBindVertexArray(m_sphere_vao);
 
-    // Task 2: activate the shader program by calling glUseProgram with m_programID
+    // Task 2: activate the shader program by calling glUseProgram with `m_shader`
 
-    // Task 6: pass in m_model as a uniform into the shader progam
+    // Task 6: pass in m_model as a uniform into the shader program
 
     // Task 7: pass in m_view and m_proj
 
-    // Task 13: pass m_ka into the fragment shader as a uniform
+    // Task 12: pass m_ka into the fragment shader as a uniform
 
-    // Task 16: pass m_lightPos into the fragment shader
+    // Task 13: pass light position and m_kd into the fragment shader as a uniform
+
+    // Task 14: pass shininess, m_ks, and world-space camera position
 
     // Draw Command
     glDrawArrays(GL_TRIANGLES, 0, m_sphereData.size() / 3);
@@ -136,17 +141,14 @@ void GLRenderer::paintGL()
     glBindVertexArray(0);
 
     // Task 3: deactivate the shader program by passing 0 into glUseProgram
-
 }
+
+// ================== Other stencil code
 
 void GLRenderer::resizeGL(int w, int h)
 {
     m_proj = glm::perspective(glm::radians(45.0),1.0 * w / h,0.01,100.0);
 }
-
-//---------------------------------------//
-// Camera Movement, Don't worry about it //
-//---------------------------------------//
 
 void GLRenderer::mousePressEvent(QMouseEvent *event) {
     // Set initial mouse position

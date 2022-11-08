@@ -1,41 +1,27 @@
 #version 330 core
 
-// Task 5: declare "in" variables for the position and normal to recieve from vertex shader
+// Task 5: declare "in" variables for the world-space position and normal,
+//         received post-interpolation from the vertex shader
 
-// Task 10: declare an out vec4 named gl_FragColor
+// Task 10: declare an out vec4 for your output color
 
-// Task 12: declare a uniform float to store the ambient coefficent
+// Task 12: declare relevant uniform(s) here, for ambient lighting
 
-// Task 13: declare a uniform to store the light position
+// Task 13: declare relevant uniform(s) here, for diffuse lighting
 
+// Task 14: declare relevant uniform(s) here, for specular lighting
 
 void main() {
-    // Task 10: set gl_FragColor to vec4(1.0) and make sure you can see the white circle.
+    // Remember that you need to renormalize vectors here if you want them to be normalized
 
-    // Task 11: set fragColor to have color components from the normal vector to make sure the normals are transformed correctly.
-    //         once you verify that the normals are correct set the frag color to black(0,0,0,1) to prep for the next part of the lab
+    // Task 10: set your output color to white (i.e. vec4(1.0)). Make sure you get a white circle!
 
+    // Task 11: set your output color to the absolute value of your world-space normals,
+    //          to make sure your normals are correct.
 
-    // Task 12: calculate ambient light
-    /*
-     * At the beginning of this file, declare a uniform to store the ambient coeffient
-     * add a vec3 with components given by the ambient coefficient to the output color
-     */
+    // Task 12: add ambient component to output color
 
+    // Task 13: add diffuse component to output color
 
-    // Task 13: calculate diffuse light
-    /*
-     * calculate the direction vector to the light
-     * using kd, the normal, and the direction vector to the light, compute the diffuse intensity
-     * add the diffuse intensity to the final color
-     */
-
-    // Task 14: calculate specular light
-    /*
-     * compute the light vector reflected about the surface normal
-     * compute the direction vector to the camera
-     * using ks, the reflected light vector, and the camera direction vector, compute the specular intensity
-     * add the specular intensity to the final color
-     */
-
+    // Task 14: add specular component to output color
 }

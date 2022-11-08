@@ -8,8 +8,8 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    QCoreApplication::setApplicationName("Lab10");
-    QCoreApplication::setOrganizationName("BrownCSCI1230");
+    QCoreApplication::setApplicationName("Lab 10: Shaders");
+    QCoreApplication::setOrganizationName("CS 1230");
     QCoreApplication::setApplicationVersion(QT_VERSION_STR);
 
     // Set OpenGL version to 4.1 and context to Core
@@ -24,10 +24,11 @@ int main(int argc, char *argv[])
     int desktopArea = QGuiApplication::primaryScreen()->size().width() *
                       QGuiApplication::primaryScreen()->size().height();
     int widgetArea = w.width() * w.height();
-    if (((float)widgetArea / (float)desktopArea) < 0.75f)
+    if (((float)widgetArea / (float)desktopArea) < 0.75f) {
         w.show();
-    else
+    } else {
         w.showMaximized();
+    }
 
     return a.exec();
 }
